@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>qwscoded</title>
+    <style>
+        :root {
+            --bg-dark: #121212;
+            --text-color: #e0e0e0;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-color);
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        .rainbow-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(45deg, rgba(0,0,0,0.8), var(--bg-dark));
+        }
+
+        .rainbow-box {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 8px 32px 0 rgba(255,100,100,0.2);
+            animation: rainbow-border 5s linear infinite;
+        }
+
+        @keyframes rainbow-border {
+            0% { border: 3px solid rgb(255,0,0); }
+            16% { border: 3px solid rgb(255,165,0); }
+            33% { border: 3px solid rgb(255,255,0); }
+            50% { border: 3px solid rgb(0,255,0); }
+            66% { border: 3px solid rgb(0,0,255); }
+            83% { border: 3px solid rgb(75,0,130); }
+            100% { border: 3px solid rgb(238,130,238); }
+        }
+
+        .rainbow-text {
+            background: linear-gradient(to right, 
+                red, orange, yellow, 
+                green, blue, indigo, violet);
+            -webkit-background-clip: text;
+            color: transparent;
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        .rainbow-link {
+            position: relative;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .rainbow-link::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(to right, 
+                red, orange, yellow, 
+                green, blue, indigo, violet);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.5s ease;
+        }
+
+        .rainbow-link:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .dynamic-rainbow-link {
+            animation: dynamic-rainbow-text 5s linear infinite;
+        }
+
+        @keyframes dynamic-rainbow-text {
+            0% { color: rgb(255,0,0); }
+            16% { color: rgb(255,165,0); }
+            33% { color: rgb(255,255,0); }
+            50% { color: rgb(0,255,0); }
+            66% { color: rgb(0,0,255); }
+            83% { color: rgb(75,0,130); }
+            100% { color: rgb(238,130,238); }
+        }
+
+        /* Остальные стили остаются без изменений */
+    </style>
+</head>
+<body>
+    <div class="rgb-glow"></div>
+    <div class="rainbow-container">
+        <div class="rainbow-box">
+            <h1 class="rainbow-text">qwscoded</h1>
+            <p>Telegramm Channel: 
+                <a href="https://t.me/qwsMadePython" 
+                   class="rainbow-link dynamic-rainbow-link">
+                    https://t.me/qwsMadePython
+                </a>
+            </p>
+            <button class="rgb-button">tap tap tap</button>
+        </div>
+    </div>
+</body>
+</html>
