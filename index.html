@@ -2,19 +2,26 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>qwscoded</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --bg-dark: #121212;
-            --text-color: #e0e0e0;
+            --text-color: #e0e000;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
             background-color: var(--bg-dark);
             color: var(--text-color);
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
+            font-family: 'Orbitron', 'Arial', sans-serif;
+            line-height: 1.6;
             overflow-x: hidden;
         }
 
@@ -24,34 +31,85 @@
             align-items: center;
             min-height: 100vh;
             background: linear-gradient(45deg, rgba(0,0,0,0.8), var(--bg-dark));
+            perspective: 1000px;
         }
 
         .rainbow-box {
+            position: relative;
             background: rgba(255,255,255,0.1);
             border-radius: 15px;
             padding: 40px;
             text-align: center;
             box-shadow: 0 8px 32px 0 rgba(255,100,100,0.2);
-            animation: rainbow-border 5s linear infinite;
+            animation: float 3s ease-in-out infinite alternate;
+            transform-style: preserve-3d;
+            transition: all 0.3s ease;
+            overflow: hidden;
         }
 
-        @keyframes rainbow-border {
-            0% { border: 3px solid rgb(255,0,0); }
-            16% { border: 3px solid rgb(255,165,0); }
-            33% { border: 3px solid rgb(255,255,0); }
-            50% { border: 3px solid rgb(0,255,0); }
-            66% { border: 3px solid rgb(0,0,255); }
-            83% { border: 3px solid rgb(75,0,130); }
-            100% { border: 3px solid rgb(238,130,238); }
+        /* Радужная анимированная рамка */
+        .rainbow-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(
+                red, 
+                orange, 
+                yellow, 
+                green, 
+                blue, 
+                indigo, 
+                violet, 
+                red
+            );
+            animation: rotate 4s linear infinite;
+            z-index: -1;
+        }
+
+        .rainbow-box::after {
+            content: '';
+            position: absolute;
+            inset: 4px;
+            background: var(--bg-dark);
+            border-radius: 11px;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .rainbow-box:hover {
+            transform: scale(1.05) rotateX(5deg) rotateY(5deg);
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            100% { transform: translateY(-10px); }
         }
 
         .rainbow-text {
-            background: linear-gradient(to right, 
-                red, orange, yellow, 
-                green, blue, indigo, violet);
+            background: conic-gradient(
+                red, 
+                orange, 
+                yellow, 
+                green, 
+                blue, 
+                indigo, 
+                violet
+            );
             -webkit-background-clip: text;
+            background-clip: text;
             color: transparent;
-            font-size: 3rem;
+            font-size: clamp(2rem, 5vw, 3rem);
             font-weight: bold;
         }
 
@@ -61,6 +119,7 @@
             font-weight: bold;
             padding: 5px;
             transition: all 0.3s ease;
+            color: var(--text-color);
         }
 
         .rainbow-link::before {
@@ -70,9 +129,15 @@
             bottom: 0;
             width: 100%;
             height: 2px;
-            background: linear-gradient(to right, 
-                red, orange, yellow, 
-                green, blue, indigo, violet);
+            background: conic-gradient(
+                red, 
+                orange, 
+                yellow, 
+                green, 
+                blue, 
+                indigo, 
+                violet
+            );
             transform: scaleX(0);
             transform-origin: right;
             transition: transform 0.5s ease;
@@ -88,30 +153,56 @@
         }
 
         @keyframes dynamic-rainbow-text {
-            0% { color: rgb(255,0,0); }
-            16% { color: rgb(255,165,0); }
-            33% { color: rgb(255,255,0); }
-            50% { color: rgb(0,255,0); }
-            66% { color: rgb(0,0,255); }
-            83% { color: rgb(75,0,130); }
-            100% { color: rgb(238,130,238); }
+            0% { color: red; }
+            16% { color: orange; }
+            33% { color: yellow; }
+            50% { color: green; }
+            66% { color: blue; }
+            83% { color: indigo; }
+            100% { color: violet; }
         }
 
-        /* Остальные стили остаются без изменений */
+        .rgb-button {
+            background: conic-gradient(
+                red, 
+                orange, 
+                yellow, 
+                green, 
+                blue, 
+                indigo, 
+                violet
+            );
+            border: none;
+            color: var(--bg-dark);
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .rgb-button:hover {
+            transform: scale(1.1) rotate(3deg);
+            box-shadow: 0 4px 15px rgba(255,255,255,0.2);
+        }
     </style>
 </head>
 <body>
-    <div class="rgb-glow"></div>
     <div class="rainbow-container">
         <div class="rainbow-box">
             <h1 class="rainbow-text">qwscoded</h1>
-            <p>Telegramm Channel: 
+            <p>Telegram Channel: 
                 <a href="https://t.me/qwsMadePython" 
-                   class="rainbow-link dynamic-rainbow-link">
+                   class="rainbow-link dynamic-rainbow-link" 
+                   target="_blank" 
+                   rel="noopener noreferrer">
                     https://t.me/qwsMadePython
                 </a>
             </p>
-            <button class="rgb-button">tap tap tap</button>
+            <button class="rgb-button" onclick="window.open('https://t.me/qwsMadePython', '_blank')">
+                Нажми меня
+            </button>
         </div>
     </div>
 </body>
